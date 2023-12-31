@@ -5,18 +5,23 @@
 </head>
 <body>
 <?php
+
 // This is a basic PHP file
+        include_once("config.php");
 
-            // Define a function
-            function sayHello($name) {
-                return "Hello, " . $name;
-            }
+        //!SMALL DEMO
+        $result = mysqli_query($mysqli, "SELECT * FROM (table_name)");
 
-            // Use the function
-            echo sayHello("World");
+        while($res = $result->fetch_object()){
+            $data[] = $res;
+        }
+
+        foreach($data as $item){
+            echo "<br>";
+            echo $item->(table_field) . "+" . $item->(table_field);
+            echo "<br>";
+        }
 ?>
-    <h1>This is a Heading</h1>
-    <p>This is a paragraph.</p>
-    <p>This is another paragraph.</p>
+
 </body>
 </html>
