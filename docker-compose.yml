@@ -2,11 +2,13 @@ version: "3.9"
 
 services:
     web:
-        build: .
+        build:
+            context: .
+            dockerfile: Dockerfile
         ports:
             - 9000:80
         volumes:
-            - ./src/frontend:/var/www/html
+            - ./src:/var/www/html
     db:
         image: mariadb:10.6
         restart: always
