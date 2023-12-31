@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+    web:
+        build: .
+        ports:
+            - 9000:80
+        volumes:
+            - ./src/frontend:/var/www/html
+    db:
+        image: mariadb:10.6
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: big_shifu_123
+            MYSQL_DATABASE: db
+            MYSQL_USER: root
+        ports:
+            - 3303:3303
+    phpmyadmin:
+        depends_on:
+            - db
+        image: phpmyadmin
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            - PMA_ARBITRARY=1
