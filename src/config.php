@@ -8,6 +8,7 @@ $databaseName = 'tododb';
 
 // Connect to the database
 $mysqli = mysqli_connect($databaseHost, $databaseUsername, $databasePassword, $databaseName); 
+global $mysqli;
 
 mysqli_query($mysqli, "create database if not exists tododb");
 mysqli_query($mysqli, "create table if not exists tododb.Category (
