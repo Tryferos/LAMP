@@ -10,7 +10,7 @@
         include_once("config.php");
 
         //!SMALL DEMO
-        $result = mysqli_query($mysqli, "SELECT * FROM (table_name)");
+        $result = mysqli_query($mysqli, "SELECT * FROM tododb.Todo");
 
         while($res = $result->fetch_object()){
             $data[] = $res;
@@ -18,7 +18,8 @@
 
         foreach($data as $item){
             echo "<br>";
-            echo $item->(table_field) . "+" . $item->(table_field);
+            console_log($item);
+            echo $item->title;
             echo "<br>";
         }
 ?>
