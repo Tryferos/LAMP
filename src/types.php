@@ -1,4 +1,21 @@
+
+
 <?php
+// todo - categories
+// todo -> task, category -> project
+// fetch todos completed by category id
+// fetch todos pending by category id
+// fetch todos within date range by category id (date1, date2)
+// fetch description by id 
+// delete todo by id 
+// delete category by id
+// update todo (title, description) by id - 2 functions 
+// create empty todo 
+// create empty category 
+// update category (title, complete until) by id - 2 functions
+// check expired category by id
+// category tasks statistics stored in variables (completed, total, percentage)
+// 
 class Todo{
     public $id;
     public $title;
@@ -6,6 +23,10 @@ class Todo{
     public $completed;
     public $date;
     public $category;
+
+    public static function update($id, $title, $description){
+
+    }
 
     public function __construct($id, $title, $description, $completed, $date, $cid)
     {

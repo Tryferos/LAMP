@@ -1,8 +1,12 @@
-header h1{ 
+header#header{ 
     padding: 24px calc(1.5vw + 12px);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    font-weight: bold;
+    font-size: 24px;
+    font-family: WotfardMd, sans-serif;
 }
 
 img#menu{
@@ -10,3 +14,31 @@ img#menu{
     height: 40px;
     object-fit: contain;
 }
+
+
+ul#tasks{
+    list-style: none;
+    background-color: var(--bg-color-secondary);
+    margin: 4px 12px;
+    border-radius: 16px;
+    padding: 24px;
+    width: auto;
+    display: flex;
+    min-height: 60vh;
+    flex-direction: column;
+    column-gap: 6px;
+}
+
+ul#tasks > li{
+    background-color: var(--bg-color-tertiary);
+}
+ul#tasks > li > div{
+    display: flex;
+    column-gap: 12px;
+}
+#tasks > p{
+    font-size: 23px;
+    font-weight: 600;
+    filter: brightness(1.15);
+}
+

@@ -12,14 +12,14 @@ global $mysqli;
 
 mysqli_query($mysqli, "create database if not exists tododb");
 mysqli_query($mysqli, "create table if not exists tododb.Category (
-    id int(11) not null auto_increment, title varchar(255) not null, 
+    id int(11) not null auto_increment, title varchar(255) default null, 
     date datetime not null default current_timestamp,
     complete_until datetime default null,
     unique(title),
     primary key (id)
 )");
 mysqli_query($mysqli, "create table if not exists tododb.Todo (
-    id int(11) not null auto_increment, title varchar(255) not null, description varchar(255), 
+    id int(11) not null auto_increment, title varchar(255) default null, description varchar(255), 
     completed tinyint(1) not null default 0, date datetime not null default current_timestamp,
     cid int(11) not null,
     constraint fk_category foreign key (cid) references Category(id),

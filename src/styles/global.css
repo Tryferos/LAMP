@@ -4,8 +4,9 @@
   }
   * {
     margin: 0;
-    --bg-color: #1e293b;
-    --text-color: #6366f1;
+    --bg-color: #0f172a;
+    --bg-color-secondary: #1e293b;
+    --text-color: #8b5cf6;
   }
   body {
     line-height: 1.5;
@@ -31,4 +32,18 @@ body{
     margin: 0;
     padding: 0;
     color: var(--text-color);
+    font-family: Wotfard, sans-serif;
+}
+
+@font-face {
+  font-family: Wotfard;
+  src: url('../assets/wotfard-regular.woff2');
+}
+@font-face {
+  font-family: WotfardMd;
+  src: url('../assets/wotfard-medium.woff2');
+}
+@font-face {
+  font-family: WotfardSb;
+  src: url('../assets/wotfard-semibold.woff2');
 }
