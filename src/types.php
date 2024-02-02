@@ -53,6 +53,33 @@ class Todo{
         );
     }
 
+    public static function toggleTodo($id){
+        
+        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE id = $id");
+        $result = $result->fetch_object();  
+
+        // Toggle the completed status
+        $newCompletedStatus = ($todo->completed == 1) ? 0 : 1;
+
+        // Update the database with the new completed status
+        mysqli_query($mysqli, "UPDATE tododb.Todo SET completed = $newCompletedStatus WHERE id = $id");
+
+        // Fetch and return the updated todo
+        $result = mysqli_query($mysqli, "SELECT * FROM tododb.Todo WHERE id = $id");
+        $result = $result->fetch_object();  
+
+        return new Todo(
+            $result->id,
+            $result->title,
+            $result->description,
+            $result->completed,
+            $result->date,
+            $result->cid
+    );
+
+
+    }
+
     public static function fetchAll($cid){
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo where cid = $cid");
         $todos = [];
