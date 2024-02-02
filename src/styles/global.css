@@ -6,7 +6,9 @@
     margin: 0;
     --bg-color: #0f172a;
     --bg-color-secondary: #1e293b;
+    --bg-color-tertiary: #334155;
     --text-color: #8b5cf6;
+    --text-color-secondary: #e2e8f0;
   }
   body {
     line-height: 1.5;

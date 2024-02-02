@@ -12,6 +12,7 @@
 <?php
     require_once("config.php");
     include_once("types.php");
+    echo "<script src='scripts/handler.js'></script>";
 ?>
 <body>
     <header id="header">

@@ -26,19 +26,46 @@ ul#tasks{
     display: flex;
     min-height: 60vh;
     flex-direction: column;
-    column-gap: 6px;
+    gap: 6px;
 }
 
 ul#tasks > li{
     background-color: var(--bg-color-tertiary);
+    padding: 6px 12px;
+    border-radius: 12px;
 }
 ul#tasks > li > div{
     display: flex;
     column-gap: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    outline: 1px solid white;
+}
+.checkbox[data-completed="completed"]{
+    background-color: var(--text-color);
+    outline-color: var(--text-color);
 }
 #tasks > p{
     font-size: 23px;
     font-weight: 600;
     filter: brightness(1.15);
+}
+
+.title{
+    background-color: transparent;
+    outline: none;
+    border:none;
+    color: var(--text-color-secondary);
+}
+
+ul p{
+    filter: brightness(1.35);
+
 }
 
