@@ -23,5 +23,9 @@ if($action == "save-category"){
     }
     echo json_encode(Category::updateCategory($cid, $cTitle, $complete_until));
 }
+if($action == "delete-todo"){
+    $id = $requestBody["id"];
+    echo json_encode(Todo::deleteTodo($id));
+}
 
 ?>

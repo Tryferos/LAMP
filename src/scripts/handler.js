@@ -43,21 +43,29 @@ function showSaveBtn() {
     saveBtn.style.display = "block";
 }
 
+function handleDeleteTodo(event) {
+    const id = event.currentTarget.parentElement.id;
+    const confirmation = window.confirm("Do you want to delete this todo?");
+    if (!confirmation) return;
+
+    sendRequest("POST", { action: "delete-todo", id: id }, true);
+}
+
 function handleDescription(event, id) {
     if (event.target.tagName == "INPUT") return;
     if (event.target.tagName == "TEXTAREA") return;
     if (event.target.tagName == "TEXTAREA") return;
-    let tid; let rid;
-    tid = "description-" + id;
-    rid = "arrow-" + id;
-    const description = document.getElementById(tid);
-    const arrow = document.getElementById(rid);
+    const description = document.getElementById("description-" + id);
+    const arrow = document.getElementById("arrow-" + id);
+    const deleteBtn = document.getElementById("delete-" + id);
     if (description.style.display == "block") {
         description.style.display = "none";
+        deleteBtn.style.display = "none";
         arrow.dataset.toggled = 'false';
         return;
     }
     arrow.dataset.toggled = 'true';
+    deleteBtn.style.display = "block";
     description.style.display = "block"
 }
 

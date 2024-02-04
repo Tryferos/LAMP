@@ -32,6 +32,7 @@
             ?>
         </div>
         <?php
+            //Render tasks from server
             include 'tasks.php';
         ?>
     </ul>

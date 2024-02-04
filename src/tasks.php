@@ -12,6 +12,7 @@ foreach($todos as $todo){
             echo "<img data-toggled='false' src='assets/arrow.svg' id='arrow-$todo->id' alt='open' class='arrow-todo' onclick='handleDescription(event, $todo->id)' />";
         echo "</div>";
         echo "<textarea onkeypress='onChange(event)' data-toggled='false' id='description-$todo->id' class='description-input' placeholder='Enter a description'>$todo->description</textarea>";
+        echo "<img src='assets/delete.svg' id='delete-$todo->id' alt='delete' class='delete-todo' onclick='handleDeleteTodo(event)' />";
     echo "</li>";
 }
 ?>
