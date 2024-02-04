@@ -41,23 +41,107 @@ ul#tasks > li > div{
     align-items: center;
 }
 
-.checkbox{
+.checkbox-input{
     width: 10px;
     height: 10px;
     border-radius: 100%;
     outline: 1px solid white;
 }
-.checkbox[data-completed="completed"]{
+.checkbox-input[data-completed="completed"]{
     background-color: var(--text-color);
     outline-color: var(--text-color);
 }
-#tasks > p{
+#tasks > div > p{
     font-size: 23px;
     font-weight: 600;
     filter: brightness(1.15);
 }
 
-.title{
+#tasks > div{
+    display: flex;
+    justify-content: space-between ;
+    align-items: center;
+    padding: 0px 4px 0px 4px;
+}
+
+#tasks > div > img{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+#tasks > div > input[type='datetime-local']{
+    background-color: transparent;
+    color: white;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    filter:  brightness(0.75);
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    color: rgba(255, 255, 255, 1);
+    opacity: 1;
+    display: block;
+    background: url('../assets/calendar.svg') no-repeat;
+    width: 16px;
+    height: 16px;
+    border-width: thin;
+    margin-left: -20px;
+}
+
+.task textarea{
+    background-color: transparent;
+    outline: none;
+    border:none;
+    color: var(--text-color-secondary);
+    filter: brightness(0.75);
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    resize: none;
+    min-height: 10px;
+}
+
+.task {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: var(--bg-color-tertiary);
+    transition: all 0.3s ease;
+}
+
+.task textarea[data-toggled='false']{
+    display: none;
+}
+
+.todo-info{
+    position: relative;
+}
+
+.arrow-todo{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    transform: rotate(90deg);
+    transition: all 0.3s ease;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+.arrow-todo[data-toggled='true']{
+    transform: rotate(90deg);
+}
+.arrow-todo[data-toggled='false']{
+    transform: rotate(0deg);
+}
+
+.todo-title-input{
     background-color: transparent;
     outline: none;
     border:none;
@@ -66,6 +150,29 @@ ul#tasks > li > div{
 
 ul p{
     filter: brightness(1.35);
+    
+}
 
+.title-input{
+    background-color: transparent;
+    outline: none;
+    border:none;
+    color: var(--text-color);
+
+}
+
+.save-changes{
+    background-color: var(--text-color);
+    color: white;
+    padding: 12px;
+    border-radius:12px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: absolute;
+    right: 12px;
+    margin-top: 12px;
 }
 

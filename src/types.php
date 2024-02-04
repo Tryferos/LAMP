@@ -191,12 +191,12 @@ class Todo{
         }
     
         return new Todo(
-            $result->id,
-            $result->title,
-            $result->description,
-            $result->completed,
-            $result->date,
-            $result->cid
+            $todoData->id,
+            $todoData->title,
+            $todoData->description,
+            $todoData->completed,
+            $todoData->date,
+            $todoData->cid
         );
     }
 
@@ -214,7 +214,7 @@ class Todo{
         }
     }
 
-    public static function updateTodo($id, $newTitle, $newDescription){
+    public static function updateTodo($id, $newTitle, $newDescription, $completed){
         $mysqli = $GLOBALS['mysqli'];
     
         // Fetch the current todo
@@ -224,10 +224,11 @@ class Todo{
         // Check if new title or description is empty, if not, update
         $updatedTitle = (!empty($newTitle)) ? $newTitle : $todo->title;
         $updatedDescription = (!empty($newDescription)) ? $newDescription : $todo->description;
+        $updatedCompleted = (!empty($completed)) ? $completed : $todo->completed;
     
         // Update the database with the new title and description
         mysqli_query($mysqli, "UPDATE tododb.Todo 
-                               SET title = '$updatedTitle', description = '$updatedDescription', date = current_timestamp  
+                               SET title = '$updatedTitle', description = '$updatedDescription', date = current_timestamp, completed = $updatedCompleted 
                                WHERE id = $id");
     
         // Fetch and return the updated todo
@@ -277,6 +278,10 @@ class Category{
 
     public static function fetchName($id){
         return Category::fetchId($id)->title;
+    }
+
+    public static function fetchCompleteUntil($id){
+        return Category::fetchId($id)->complete_until;
     }
 
 
