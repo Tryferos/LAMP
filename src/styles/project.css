@@ -15,27 +15,48 @@ img#menu{
     object-fit: contain;
 }
 
+.scrollbar::-webkit-scrollbar {
+    width:6px;
+    background-color: transparent;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--bg-color-tertiary);
+    border-radius: 4px;
+}
+.scrollbar::-webkit-scrollbar-truck{
+    background-color: black;
+    border-radius: 4px;
+}
 
 ul#tasks{
     list-style: none;
     background-color: var(--bg-color-secondary);
     margin: 4px 12px;
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px 20px 20px 20px;
     width: auto;
     display: flex;
-    min-height: 60vh;
+    height: 60vh;
     flex-direction: column;
     gap: 6px;
     position: relative;
 }
 
-ul#tasks > li{
+#tasks-container{
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 60vh;
+    padding: 4px;
+}
+
+ul#tasks > div > li{
     background-color: var(--bg-color-tertiary);
     padding: 6px 12px;
     border-radius: 12px;
 }
-ul#tasks > li > div{
+ul#tasks > div > li > div{
     display: flex;
     column-gap: 12px;
     display: flex;
@@ -104,6 +125,18 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     display: none;
 }
 
+#task-footer{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+}
+#task-count{
+    font-size: 16px !important;
+    filter: brightness(0.85) !important;
+}
+
 #add-btn > img{
     width: 32px;
     height: 32px;
@@ -115,10 +148,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 #add-btn{
     border: none;
     outline: none;
-    position: absolute;
-    bottom: 24px;
     background-color: transparent;
-    right: 24px;
 }
 
 
