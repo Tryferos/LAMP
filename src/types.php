@@ -13,8 +13,7 @@
 // create empty category done
 // update category (title, complete until) by id - 2 functions done
 // check expired category by id done
-// category tasks statistics stored in variables (completed, total, percentage)
-// 
+// category tasks statistics stored in variables (completed, total, percentage) done
 class Todo
 {
     public $id;
@@ -62,7 +61,7 @@ class Todo
 
     public static function fetchCompleted($cid)
     {
-        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid AND completed = 1");
+        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid AND completed = 1 ORDER BY date DESC");
 
         $todos = [];
         while ($row = $result->fetch_object()) {
@@ -81,7 +80,7 @@ class Todo
 
     public static function fetchPending($cid)
     {
-        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid AND completed = 0");
+        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid AND completed = 0 ORDER BY date DESC");
 
         $todos = [];
         while ($row = $result->fetch_object()) {
@@ -103,7 +102,8 @@ class Todo
 
         $query = "SELECT * FROM tododb.Todo 
                   WHERE cid = $cid 
-                  AND date BETWEEN '$startDate' AND '$endDate'";
+                  AND date BETWEEN '$startDate' AND '$endDate' 
+                  ORDER BY date DESC";
 
         $result = mysqli_query($mysqli, $query);
 
@@ -151,7 +151,7 @@ class Todo
 
     public static function fetchAll($cid)
     {
-        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid");
+        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid ORDER BY date DESC");
         $todos = [];
         while ($row = $result->fetch_object()) {
             $todos[] = new Todo(
@@ -176,8 +176,13 @@ class Todo
     {
         $mysqli = $GLOBALS['mysqli'];
 
+        //Check if a record with NULL title exists
+        $query = "SELECT * FROM tododb.Todo WHERE title IS NULL";
+        $result = mysqli_query($mysqli, $query);
+        if (mysqli_num_rows($result) > 0) return;
+
         //Insert a new empty todo
-        $insertResult = mysqli_query($mysqli, "INSERT INTO tododb.Todo (title, description, completed, cid) VALUES ('', '', 0, $cid)");
+        $insertResult = mysqli_query($mysqli, "INSERT INTO tododb.Todo (title, description, completed, cid) VALUES (NULL, '', 0, $cid)");
 
         if (!$insertResult) {
             // Handle the error if the insert query fails
@@ -351,8 +356,13 @@ class Category
     {
         $mysqli = $GLOBALS['mysqli'];
 
+        //Check if a record with NULL title exists
+        $query = "SELECT * FROM tododb.Category WHERE title IS NULL";
+        $result = mysqli_query($mysqli, $query);
+        if (mysqli_num_rows($result) > 0) return;
+
         // Insert a new empty category into the database
-        mysqli_query($mysqli, "INSERT INTO tododb.Category (title) VALUES ('')");
+        mysqli_query($mysqli, "INSERT INTO tododb.Category (title) VALUES (NULL)");
         $categoryId = mysqli_insert_id($mysqli);
 
         // Fetch and return the newly created category
