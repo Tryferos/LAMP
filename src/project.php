@@ -35,14 +35,21 @@ echo "<script src='scripts/handler.js'></script>";
         </div>
         <?php
         //Render tasks from server
+        echo "<div id='tasks-container' class='scrollbar'>";
         include 'tasks.php';
+        echo "</div>";
         ?>
-        <?php
-        $cid = $_REQUEST['id'];
-        echo "<button onclick='handleCreateTodo($cid)' id='add-btn'>";
-        echo "<img src='assets/add.svg' alt='add' id='add-task'/>";
-        echo "</button>";
-        ?>
+        <div id="task-footer">
+            <?php
+            $cid = $_REQUEST['id'];
+            $tasks = count(Todo::fetchAll($cid));
+            $completed = count(Todo::fetchCompleted($cid));
+            echo "<p id='task-count'>$completed/$tasks <span>completed</span></p>";
+            echo "<button onclick='handleCreateTodo($cid)' id='add-btn'>";
+            echo "<img src='assets/add.svg' alt='add' id='add-task'/>";
+            echo "</button>";
+            ?>
+        </div>
     </ul>
     <?php
     $cid = $_REQUEST['id'];
