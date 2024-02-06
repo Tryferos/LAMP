@@ -10,7 +10,44 @@ async function handleToggle(event) {
     event.currentTarget.dataset.completed = 'completed';
 }
 
-async function handleSave(cid) {
+function handleFilterChange(event) {
+    const target = event.target;
+    const filter = target.dataset.filter.toLowerCase();
+    const filters = document.getElementsByClassName('filter-item');
+    for (let i = 0; i < filters.length; i++) {
+        if (filters[i].dataset.filter.toLowerCase() == filter) continue;
+        const input = filters[i].childNodes.item(2);
+        input.checked = false;
+    }
+    const tasks = document.getElementsByClassName('task');
+    for (let i = 0; i < tasks.length; i++) {
+        if (filter == 'all') {
+            tasks[i].style.display = "flex";
+            continue;
+        }
+        if (filter == 'completed') {
+            if (tasks[i].dataset.completed == 'completed') {
+                tasks[i].style.display = "flex";
+                continue;
+            }
+        }
+        if (filter == 'pending') {
+            if (tasks[i].dataset.completed != 'completed') {
+                tasks[i].style.display = "flex";
+                continue;
+            }
+        }
+        tasks[i].style.display = "none";
+    }
+}
+
+async function handleCancelChanges() {
+    const confirmation = window.confirm("Do you want to cancel your changes?");
+    if (!confirmation) return;
+    window.location.reload();
+}
+
+async function handleSaveChanges(cid) {
     const confirmation = window.confirm("Do you want to save your changes?")
     if (!confirmation) return;
     const calendar = document.getElementById("calendar-input");
@@ -21,10 +58,18 @@ async function handleSave(cid) {
     let todos = [];
     for (let i = 0; i < titles.length; i++) {
         const title = titles[i].value;
+        if (title.length < 4) {
+            alert(`Todo title '${title}' need to have at least 4 characters.`);
+            return;
+        }
         const description = descriptions[i].value;
         const completed = checkboxes[i].dataset.completed == "completed";
         const tid = titles[i].parentElement.parentElement.id;
         todos.push({ title: title, description: description, completed: completed, id: tid, cid: cid });
+    }
+    if (title.value.length < 4) {
+        alert("Project title need to have at least 4 characters.");
+        return;
     }
     const data = {
         title: title.value,
@@ -40,7 +85,9 @@ function onChange(event) {
 }
 function showSaveBtn() {
     const saveBtn = document.getElementById('save-btn');
-    saveBtn.style.display = "block";
+    saveBtn.style.display = "flex";
+    const createTodoBtn = document.getElementById('add-btn');
+    createTodoBtn.style.display = "none";
 }
 
 function handleCreateTodo(cid) {

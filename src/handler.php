@@ -19,7 +19,7 @@ if ($action == "save-category") {
         $title = $todo["title"];
         $description = $todo["description"];
         $completed = $todo["completed"];
-        Todo::updateTodo($id, $title, $description, $completed);
+        echo json_encode(Todo::updateTodo($id, $title, $description, $completed));
     }
     echo json_encode(Category::updateCategory($cid, $cTitle, $complete_until));
     return;

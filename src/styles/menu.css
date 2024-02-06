@@ -1,0 +1,77 @@
+#menu-mobile:hover +
+.mobile-dropdown-menu,
+.mobile-dropdown-menu:hover{
+    opacity: 1;
+    width: 200px;
+    height: 220px;
+    background-color: var(--text-color);
+    position: absolute;
+    top: 64px;
+    right: 24px;
+    z-index: 1000;
+    transition: all 200ms linear ; 
+    pointer-events: all;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0px 16px 0px;
+}
+.mobile-dropdown-menu{
+    opacity: 0;
+    width: 200px;
+    height: 220px;
+    position: absolute;
+    pointer-events: none;
+    border-radius: 12px;
+}
+
+.filter-header{
+    color: white; 
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 12px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.082);
+    margin-bottom: 4px;
+}
+
+ul.mobile-dropdown-menu > li{
+    gap: 8px;
+    padding: 4px 12px;
+    display: flex;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    align-items: center;
+    border-radius: 4px;
+    position: relative;
+}
+
+
+ul.mobile-dropdown-menu > li > img{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(1.5);
+}
+
+ul.mobile-dropdown-menu > li > input[type='checkbox']{
+    position: absolute;
+    right: 14px;
+    top: auto;
+    accent-color: white;
+}
+
+
+ul.mobile-dropdown-menu{
+    list-style: none;
+}
+
+.filter-header > img{
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    filter: brightness(1.5);
+}

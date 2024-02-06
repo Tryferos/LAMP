@@ -7,12 +7,14 @@ header#header{
     font-weight: bold;
     font-size: 24px;
     font-family: WotfardMd, sans-serif;
+    position: relative;
 }
 
-img#menu{
+img#menu-mobile{
     width: 40px;
     height: 40px;
     object-fit: contain;
+    cursor: pointer;
 }
 
 .scrollbar::-webkit-scrollbar {
@@ -36,19 +38,19 @@ ul#tasks{
     padding: 20px 20px 20px 20px;
     width: auto;
     display: flex;
-    height: 60vh;
+    height: 80vh;
     flex-direction: column;
-    gap: 6px;
+    gap: 16px;
     position: relative;
 }
 
 #tasks-container{
     display: flex;
-    gap: 12px;
     flex-direction: column;
     overflow-y: auto;
-    height: 60vh;
+    height: 100%;
     padding: 4px;
+    gap: 10px;
 }
 
 ul#tasks > div > li{
@@ -138,8 +140,8 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 #add-btn > img{
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
     cursor: pointer;
     filter: brightness(1.5);
@@ -149,6 +151,14 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     border: none;
     outline: none;
     background-color: transparent;
+    display: flex;
+    gap: 4px;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--text-color);
+    padding: 4px 12px;
+    border-radius: 8px;
 }
 
 
@@ -224,18 +234,40 @@ ul p{
 
 }
 
-.save-changes{
-    background-color: var(--text-color);
+#save-btn{
     color: white;
-    padding: 12px;
     border-radius:12px;
+    height: 34px;
+    padding: 0px;
     border: none;
-    outline: none;
     font-size: 16px;
     cursor: pointer;
     transition: all 0.3s ease;
-    position: absolute;
-    right: 12px;
-    margin-top: 12px;
+    background-color: var(--bg-color-tertiary);
 }
 
+.save-changes{
+    align-items: center;
+    justify-content: space-between;
+    height: 34px;
+    gap: 4px;
+}
+
+.save-changes > img{
+    width: 30px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(1.5);
+    height: 100%;
+    padding: 0px 4px;
+}
+.save-changes > img[id='cancel-changes'] {
+    background-color: var(--bg-color-secondary);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.save-changes >  img[id='save-changes'] {
+    background-color: var(--bg-color-secondary);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}

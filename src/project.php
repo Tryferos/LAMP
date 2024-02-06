@@ -8,6 +8,7 @@
     <?php
     echo '<link rel="stylesheet" type="text/css" href="styles/global.css">';
     echo '<link rel="stylesheet" type="text/css" href="styles/project.css">';
+    echo '<link rel="stylesheet" type="text/css" href="styles/menu.css">';
     ?>
 </head>
 <?php
@@ -22,7 +23,10 @@ echo "<script src='scripts/handler.js'></script>";
             $cid = $_REQUEST['id'];
             $name = Category::fetchName($cid);
             echo "<input type='text' onkeypress='onChange(event)' value='$name' name='title' id='c$cid' class='title-input'/>" ?></p>
-        <img src="assets/menu.svg" alt="menu" id="menu" />
+        <img src="assets/menu.svg" alt="menu" id="menu-mobile" />
+        <?php
+        include "menu.php";
+        ?>
     </header>
     <ul id="tasks">
         <div>
@@ -46,15 +50,18 @@ echo "<script src='scripts/handler.js'></script>";
             $completed = count(Todo::fetchCompleted($cid));
             echo "<p id='task-count'>$completed/$tasks <span>completed</span></p>";
             echo "<button onclick='handleCreateTodo($cid)' id='add-btn'>";
+            echo "<p>Add Task</p>";
             echo "<img src='assets/add.svg' alt='add' id='add-task'/>";
             echo "</button>";
+            $cid = $_REQUEST['id'];
+            echo "<button class='save-changes' hidden id='save-btn'>";
+            echo "<img src='assets/confirm.svg' onclick='handleSaveChanges($cid)' alt='save' id='save-changes'/>";
+            echo "<p>Save Changes</p>";
+            echo "<img src='assets/cancel.svg' onclick='handleCancelChanges()' alt='cancel' id='cancel-changes'/>";
+            echo "</div>";
             ?>
         </div>
     </ul>
-    <?php
-    $cid = $_REQUEST['id'];
-    echo "<input type='button' hidden value='Save Changes' id='save-btn' class='save-changes' onclick='handleSave($cid)'/>"
-    ?>
 </body>
 
 </html>
