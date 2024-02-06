@@ -15,7 +15,8 @@
 // check expired category by id done
 // category tasks statistics stored in variables (completed, total, percentage)
 // 
-class Todo{
+class Todo
+{
     public $id;
     public $title;
     public $description;
@@ -25,7 +26,7 @@ class Todo{
 
     public function __construct($id, $title, $description, $completed, $date, $cid)
     {
-        
+
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
@@ -35,7 +36,8 @@ class Todo{
         $this->category = $result->fetch_object();
     }
 
-    public static function fetchId($id){
+    public static function fetchId($id)
+    {
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE id = $id");
         $result = $result->fetch_object();
         return new Todo(
@@ -48,20 +50,22 @@ class Todo{
         );
     }
 
-    public static function fetchDescription($id){
-    
+    public static function fetchDescription($id)
+    {
+
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT description FROM tododb.Todo WHERE id = $id");
         $todo = $result->fetch_object();
-    
+
         return $todo->description;
     }
 
 
-    public static function fetchCompleted($cid){
+    public static function fetchCompleted($cid)
+    {
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid AND completed = 1");
-        
+
         $todos = [];
-        while($row = $result->fetch_object()){
+        while ($row = $result->fetch_object()) {
             $todos[] = new Todo(
                 $row->id,
                 $row->title,
@@ -75,11 +79,12 @@ class Todo{
     }
 
 
-    public static function fetchPending($cid){
+    public static function fetchPending($cid)
+    {
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid AND completed = 0");
-        
+
         $todos = [];
-        while($row = $result->fetch_object()){
+        while ($row = $result->fetch_object()) {
             $todos[] = new Todo(
                 $row->id,
                 $row->title,
@@ -92,17 +97,18 @@ class Todo{
         return $todos;
     }
 
-    public static function fetchTodosByDateRange($cid, $startDate, $endDate) {
+    public static function fetchTodosByDateRange($cid, $startDate, $endDate)
+    {
         $mysqli = $GLOBALS['mysqli'];
-    
+
         $query = "SELECT * FROM tododb.Todo 
                   WHERE cid = $cid 
                   AND date BETWEEN '$startDate' AND '$endDate'";
-    
+
         $result = mysqli_query($mysqli, $query);
-    
+
         $todos = [];
-        while($row = $result->fetch_object()){
+        while ($row = $result->fetch_object()) {
             $todos[] = new Todo(
                 $row->id,
                 $row->title,
@@ -114,13 +120,14 @@ class Todo{
         }
         return $todos;
     }
-    
 
 
-    public static function toggleTodo($id){
-        
+
+    public static function toggleTodo($id)
+    {
+
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE id = $id");
-        $todo = $result->fetch_object();  
+        $todo = $result->fetch_object();
 
         // Toggle the completed status
         $newCompletedStatus = ($todo->completed == 1) ? 0 : 1;
@@ -130,7 +137,7 @@ class Todo{
 
         // Fetch and return the updated todo
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE id = $id");
-        $result = $result->fetch_object();  
+        $result = $result->fetch_object();
 
         return new Todo(
             $result->id,
@@ -142,10 +149,11 @@ class Todo{
         );
     }
 
-    public static function fetchAll($cid){
+    public static function fetchAll($cid)
+    {
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Todo WHERE cid = $cid");
         $todos = [];
-        while($row = $result->fetch_object()){
+        while ($row = $result->fetch_object()) {
             $todos[] = new Todo(
                 $row->id,
                 $row->title,
@@ -158,17 +166,19 @@ class Todo{
         return $todos;
     }
 
-    public static function fetchName($id){
+    public static function fetchName($id)
+    {
         return Todo::fetchId($id)->title;
     }
 
 
-    public static function createEmptyTodo($cid){
+    public static function createEmptyTodo($cid)
+    {
         $mysqli = $GLOBALS['mysqli'];
-    
+
         //Insert a new empty todo
         $insertResult = mysqli_query($mysqli, "INSERT INTO tododb.Todo (title, description, completed, cid) VALUES ('', '', 0, $cid)");
-    
+
         if (!$insertResult) {
             // Handle the error if the insert query fails
             die("Error creating empty todo: " . mysqli_error($mysqli));
@@ -176,7 +186,7 @@ class Todo{
 
         // Get the ID of the newly created todo
         $newTodoId = mysqli_insert_id($mysqli);
-    
+
         // Fetch and return the newly created todo
         $result = mysqli_query($mysqli, "SELECT * FROM tododb.Todo WHERE id = $newTodoId");
         if (!$result) {
@@ -189,7 +199,7 @@ class Todo{
             // Handle the case where no todo is found
             die("Error: No todo found with ID $newTodoId");
         }
-    
+
         return new Todo(
             $todoData->id,
             $todoData->title,
@@ -201,10 +211,11 @@ class Todo{
     }
 
 
-    public static function deleteTodo($id){
+    public static function deleteTodo($id)
+    {
         // Delete the todo from the database
         mysqli_query($GLOBALS['mysqli'], "DELETE FROM tododb.Todo WHERE id = $id");
-    
+
         if (mysqli_affected_rows($$GLOBALS['mysqli']) > 0) {
             // Deletion successful
             return true;
@@ -214,27 +225,28 @@ class Todo{
         }
     }
 
-    public static function updateTodo($id, $newTitle, $newDescription, $completed){
+    public static function updateTodo($id, $newTitle, $newDescription, $completed)
+    {
         $mysqli = $GLOBALS['mysqli'];
-    
+
         // Fetch the current todo
         $result = mysqli_query($mysqli, "SELECT * FROM tododb.Todo WHERE id = $id");
         $todo = $result->fetch_object();
-    
+
         // Check if new title or description is empty, if not, update
         $updatedTitle = (!empty($newTitle)) ? $newTitle : $todo->title;
         $updatedDescription = (!empty($newDescription)) ? $newDescription : $todo->description;
         $updatedCompleted = (!empty($completed)) ? $completed : $todo->completed;
-    
+
         // Update the database with the new title and description
         mysqli_query($mysqli, "UPDATE tododb.Todo 
                                SET title = '$updatedTitle', description = '$updatedDescription', date = current_timestamp, completed = $updatedCompleted 
                                WHERE id = $id");
-    
+
         // Fetch and return the updated todo
         $result = mysqli_query($mysqli, "SELECT * FROM tododb.Todo WHERE id = $id");
-        $result = $result->fetch_object();  
-    
+        $result = $result->fetch_object();
+
         return new Todo(
             $result->id,
             $result->title,
@@ -244,17 +256,17 @@ class Todo{
             $result->cid
         );
     }
-   
 }
 
-class Category{
+class Category
+{
     public $id;
     public $title;
     public $date;
     public $complete_until;
     public $todos;
 
-    public function __construct($id, $title, $date, $complete_until,$todos = [])
+    public function __construct($id, $title, $date, $complete_until, $todos = [])
     {
         $this->id = $id;
         $this->title = $title;
@@ -263,7 +275,8 @@ class Category{
         $this->todos = $todos;
     }
 
-    public static function fetchId($id){
+    public static function fetchId($id)
+    {
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Category WHERE id = $id");
         $result = $result->fetch_object();
         $todosResult = Todo::fetchAll($id);
@@ -276,71 +289,76 @@ class Category{
         );
     }
 
-    public static function fetchName($id){
+    public static function fetchName($id)
+    {
         return Category::fetchId($id)->title;
     }
 
-    public static function fetchCompleteUntil($id){
+    public static function fetchCompleteUntil($id)
+    {
         return Category::fetchId($id)->complete_until;
     }
 
 
-    public static function isCategoryExpired($categoryId){
+    public static function isCategoryExpired($categoryId)
+    {
         $mysqli = $GLOBALS['mysqli'];
-    
+
         // Fetch the category information
         $result = mysqli_query($mysqli, "SELECT * FROM tododb.Category WHERE id = $categoryId");
         $category = $result->fetch_object();
-    
+
         // Check if the category has an expiration date
         if ($category->complete_until) {
             // Convert the complete_until date to a timestamp
             $expirationTimestamp = strtotime($category->complete_until);
-    
+
             // Get the current timestamp
             $currentTimestamp = time();
-    
+
             // Check if the category has expired
             return $currentTimestamp > $expirationTimestamp;
         }
-    
+
         // If the category doesn't have an expiration date, it's not expired
         return false;
     }
-    
 
-    public static function getCompletionPercentage($categoryId) {
+
+    public static function getCompletionPercentage($categoryId)
+    {
         $mysqli = $GLOBALS['mysqli'];
-    
+
         // Count the total number of todos in the category
         $totalQuery = "SELECT COUNT(*) as total FROM tododb.Todo WHERE cid = $categoryId";
         $totalResult = mysqli_query($mysqli, $totalQuery);
         $total = $totalResult->fetch_assoc()['total'];
-    
+
         // Count the number of completed todos in the category
         $completedQuery = "SELECT COUNT(*) as completed FROM tododb.Todo WHERE cid = $categoryId AND completed = 1";
         $completedResult = mysqli_query($mysqli, $completedQuery);
         $completed = $completedResult->fetch_assoc()['completed'];
-    
+
         // Calculate the percentage
         $percentage = ($total > 0) ? (($completed / $total) * 100) : 0;
-    
+
         return $percentage;
     }
-    
 
 
-    public static function createEmptyCategory(){
+
+    public static function createEmptyCategory()
+    {
         $mysqli = $GLOBALS['mysqli'];
-        
+
         // Insert a new empty category into the database
         mysqli_query($mysqli, "INSERT INTO tododb.Category (title) VALUES ('')");
         $categoryId = mysqli_insert_id($mysqli);
-    
+
         // Fetch and return the newly created category
         $result = mysqli_query($mysqli, "SELECT * FROM tododb.Category WHERE id = $categoryId");
         $result = $result->fetch_object();
-    
+
         return new Category(
             $result->id,
             $result->title,
@@ -349,27 +367,28 @@ class Category{
         );
     }
 
-    public static function updateCategory($id, $newTitle, $newCompleteUntil){
+    public static function updateCategory($id, $newTitle, $newCompleteUntil)
+    {
         $mysqli = $GLOBALS['mysqli'];
 
         // Fetch the current category
         $result = mysqli_query($mysqli, "SELECT * FROM tododb.Category WHERE id = $id");
         $category = $result->fetch_object();
-    
+
         // Check if new title or new Complete_until date is empty, if not, update
         $updatedTitle = (!empty($newTitle)) ? $newTitle : $category->title;
         $updatedNewCompleteUntilDate = (!empty($newCompleteUntil)) ? $newCompleteUntil : $category->complete_until;
-    
+
         // Update the database with the new title and complete_until date
         mysqli_query($mysqli, "UPDATE tododb.Category
                                SET title = '$updatedTitle', complete_until = '$updatedNewCompleteUntilDate' 
                                WHERE id = $id");
 
-    
+
         // Fetch and return the updated category
         $result = mysqli_query($mysqli, "SELECT * FROM tododb.Category WHERE id = $id");
-        $result = $result->fetch_object();  
-    
+        $result = $result->fetch_object();
+
         return new Category(
             $result->id,
             $result->title,
@@ -378,10 +397,11 @@ class Category{
         );
     }
 
-    public static function deleteCategory($id){
+    public static function deleteCategory($id)
+    {
         // Delete the category from the database
         mysqli_query($GLOBALS['mysqli'], "DELETE FROM tododb.Category WHERE id = $id");
-    
+
         if (mysqli_affected_rows($$GLOBALS['mysqli']) > 0) {
             // Deletion successful
             return true;
@@ -390,7 +410,4 @@ class Category{
             return false;
         }
     }
-    
-
 }
-?>

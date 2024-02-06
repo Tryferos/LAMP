@@ -43,6 +43,16 @@ function showSaveBtn() {
     saveBtn.style.display = "block";
 }
 
+function handleCreateTodo(cid) {
+    sendRequest("POST", { action: "create-todo", cid: cid }, false, (response) => {
+        if (response.indexOf("Error") != -1) {
+            alert("You need to fill out the title before creating a new todo");
+            return;
+        }
+        window.location.reload();
+    });
+}
+
 function handleDeleteTodo(event) {
     const id = event.currentTarget.parentElement.id;
     const confirmation = window.confirm("Do you want to delete this todo?");

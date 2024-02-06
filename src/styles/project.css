@@ -27,6 +27,7 @@ ul#tasks{
     min-height: 60vh;
     flex-direction: column;
     gap: 6px;
+    position: relative;
 }
 
 ul#tasks > li{
@@ -101,6 +102,23 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     right: 12px;
     bottom: 8px;
     display: none;
+}
+
+#add-btn > img{
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: pointer;
+    filter: brightness(1.5);
+}
+
+#add-btn{
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: 24px;
+    background-color: transparent;
+    right: 24px;
 }
 
 
