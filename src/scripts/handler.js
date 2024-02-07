@@ -10,21 +10,39 @@ async function handleToggle(event) {
     event.currentTarget.dataset.completed = 'completed';
 }
 
+function handleFilterTitleClick(event) {
+    const target = event.currentTarget;
+    const input = target.childNodes.item(2);
+    if (event.target.tagName == "INPUT") {
+        return;
+    }
+    input.click();
+
+}
+
 function handleFilterChange(event) {
     const target = event.target;
     const filter = target.dataset.filter.toLowerCase();
     const filters = document.getElementsByClassName('filter-item');
+    let isReset = false;
     for (let i = 0; i < filters.length; i++) {
-        if (filters[i].dataset.filter.toLowerCase() == filter) continue;
         const input = filters[i].childNodes.item(2);
+        if (filters[i].dataset.filter.toLowerCase() == filter) {
+            if (!input.checked) {
+                isReset = true;
+                filters.item(0).childNodes.item(2).checked = true;
+            }
+            continue;
+        }
         input.checked = false;
     }
     const tasks = document.getElementsByClassName('task');
     for (let i = 0; i < tasks.length; i++) {
-        if (filter == 'all') {
+        if (filter == 'all' || isReset) {
             tasks[i].style.display = "flex";
             continue;
         }
+        if (isReset) continue;
         if (filter == 'completed') {
             if (tasks[i].dataset.completed == 'completed') {
                 tasks[i].style.display = "flex";
