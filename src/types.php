@@ -270,6 +270,8 @@ class Category
     public $date;
     public $complete_until;
     public $todos;
+    public $todoCount;
+    public $completedCount;
 
     public function __construct($id, $title, $date, $complete_until, $todos = [])
     {
@@ -278,6 +280,27 @@ class Category
         $this->date = $date;
         $this->complete_until = $complete_until;
         $this->todos = $todos;
+    }
+
+    public static function fetchAll()
+    {
+        $result = mysqli_query($GLOBALS['mysqli'], "SELECT c.id, c.title, c.date, c.complete_until, count(t.id) as todoCount, 
+        count(case t.completed when '1' then 1 else null end) as completedCount 
+        from Category c left join Todo t on c.id = t.cid group by c.id,c.title,c.date,c.complete_until order by completedCount desc, todoCount desc,c.date desc");
+        $categories = [];
+        while ($row = $result->fetch_object()) {
+            $cat = new Category(
+                $row->id,
+                $row->title,
+                $row->date,
+                $row->complete_until,
+                Todo::fetchAll($row->id)
+            );
+            $cat->todoCount = $row->todoCount;
+            $cat->completedCount = $row->completedCount;
+            $categories[] = $cat;
+        }
+        return $categories;
     }
 
     public static function fetchId($id)
@@ -327,6 +350,20 @@ class Category
 
         // If the category doesn't have an expiration date, it's not expired
         return false;
+    }
+
+    public static function calculateCompletionStatistics($category)
+    {
+        $completed = 0;
+        $total = 0;
+        foreach ($category->todos as $todo) {
+            if ($todo->completed) {
+                $completed++;
+            }
+            $total++;
+        }
+        $percentage = ($total > 0) ? (($completed / $total) * 100) : 0;
+        return array($completed, $total, $percentage);
     }
 
 
@@ -382,17 +419,30 @@ class Category
         $mysqli = $GLOBALS['mysqli'];
 
         // Fetch the current category
-        $result = mysqli_query($mysqli, "SELECT * FROM tododb.Category WHERE id = $id");
+        $result = mysqli_query($mysqli, "SELECT * FROM tododb.Category WHERE id = $id ");
         $category = $result->fetch_object();
+        if ($category->title != $newTitle) {
+            $titleExistsRes = mysqli_query($mysqli, "SELECT count(*) as total FROM tododb.Category c WHERE c.title = '$newTitle' ");
+            $titleExists = $titleExistsRes->fetch_assoc()['total'];
+            if ($titleExists > 0) {
+                throw new Exception("Category with title $newTitle already exists");
+            }
+        }
 
         // Check if new title or new Complete_until date is empty, if not, update
         $updatedTitle = (!empty($newTitle)) ? $newTitle : $category->title;
         $updatedNewCompleteUntilDate = (!empty($newCompleteUntil)) ? $newCompleteUntil : $category->complete_until;
 
-        // Update the database with the new title and complete_until date
-        mysqli_query($mysqli, "UPDATE tododb.Category
-                               SET title = '$updatedTitle', complete_until = '$updatedNewCompleteUntilDate' 
-                               WHERE id = $id");
+        if ($updatedNewCompleteUntilDate == null) {
+            mysqli_query($mysqli, "UPDATE tododb.Category
+            SET title = '$updatedTitle' 
+             WHERE id = $id");
+        } else {
+            mysqli_query($mysqli, "UPDATE tododb.Category
+            SET title = '$updatedTitle', complete_until = '$updatedNewCompleteUntilDate' 
+             WHERE id = $id");
+        }
+
 
 
         // Fetch and return the updated category

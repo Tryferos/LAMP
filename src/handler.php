@@ -20,16 +20,23 @@ if ($action == "save-category") {
         $title = $todo["title"];
         $description = $todo["description"];
         $completed = $todo["completed"];
-        echo json_encode($completed);
         $todosArray[] = Todo::updateTodo($id, $title, $description, $completed);
     }
-    Category::updateCategory($cid, $cTitle, $complete_until);
-    echo json_encode($todosArray);
+    try {
+        Category::updateCategory($cid, $cTitle, $complete_until);
+    } catch (Exception $e) {
+        echo json_encode(["error" => $e->getMessage()]);
+        return;
+    }
     return;
 }
 if ($action == "delete-todo") {
     $id = $requestBody["id"];
     echo json_encode(Todo::deleteTodo($id));
+    return;
+}
+if ($action == "create-category") {
+    echo json_encode(Category::createEmptyCategory());
     return;
 }
 if ($action == "create-todo") {

@@ -37,6 +37,19 @@ body{
     font-family: Wotfard, sans-serif;
 }
 
+.scrollbar::-webkit-scrollbar {
+  width:6px;
+  background-color: transparent;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--bg-color-tertiary);
+  border-radius: 4px;
+}
+.scrollbar::-webkit-scrollbar-truck{
+  background-color: black;
+  border-radius: 4px;
+}
+
 @font-face {
   font-family: Wotfard;
   src: url('../assets/wotfard-regular.woff2');

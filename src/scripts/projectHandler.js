@@ -20,6 +20,10 @@ function handleFilterTitleClick(event) {
 
 }
 
+function handleBack() {
+    window.location.href = "/index.php";
+}
+
 function handleFilterChange(event) {
     const target = event.target;
     const filter = target.dataset.filter.toLowerCase();
@@ -96,7 +100,17 @@ async function handleSaveChanges(cid) {
         todos: todos,
         action: "save-category"
     }
-    await sendRequest("POST", { ...data }, true);
+    await sendRequest("POST", { ...data }, false, (response) => {
+        if (!response) {
+            window.location.reload();
+            return;
+        }
+        const res = JSON.parse(response);
+        if (res.error) {
+            alert(res.error);
+        }
+        window.location.reload();
+    });
 }
 function onChange(event) {
     showSaveBtn();
@@ -110,6 +124,7 @@ function showSaveBtn() {
 
 function handleCreateTodo(cid) {
     sendRequest("POST", { action: "create-todo", cid: cid }, false, (response) => {
+        console.log(response)
         if (response.indexOf("Error") != -1) {
             alert("You need to fill out the title before creating a new todo");
             return;
@@ -144,15 +159,3 @@ function handleDescription(event, id) {
     description.style.display = "block"
 }
 
-
-async function sendRequest(method, data, refresh = false, callback = () => { }) {
-    const xhr = new XMLHttpRequest();
-    xhr.open(method, "/handler.php", true);
-    xhr.send(JSON.stringify(data));
-    xhr.onload = () => {
-        if (refresh) {
-            window.location.reload();
-        }
-        callback(xhr.responseText);
-    }
-}

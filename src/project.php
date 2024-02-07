@@ -14,15 +14,17 @@
 <?php
 require_once("config.php");
 include_once("types.php");
-echo "<script src='scripts/handler.js'></script>";
+echo "<script src='scripts/publicHandler.js'></script>";
+echo "<script src='scripts/projectHandler.js'></script>";
 ?>
 
 <body>
     <header id="header">
+        <img src="assets/back.svg" alt="back" id="back" onclick="handleBack()" />
         <?php
         $cid = $_REQUEST['id'];
         $name = Category::fetchName($cid);
-        echo "<input type='text' onkeypress='onChange(event)' value='$name' name='title' id='c$cid' class='title-input'/>" ?>
+        echo "<input type='text' placeholder='Creating a new Project...' onkeypress='onChange(event)' value='$name' name='title' id='c$cid' class='title-input'/>" ?>
         <img src="assets/menu.svg" alt="menu" id="menu-mobile" />
         <?php
         include "menu.php";
@@ -33,6 +35,7 @@ echo "<script src='scripts/handler.js'></script>";
             <p>Tasks</p>
             <?php
             $date = date('Y-m-d\TH:i');
+            $cid = $_REQUEST['id'];
             $complete_until = Category::fetchCompleteUntil($cid);
             echo "<input min='$date' onchange='onChange(event)' value='$complete_until' type='datetime-local' id='calendar-input'/>";
             ?>

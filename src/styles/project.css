@@ -49,8 +49,18 @@ header#header{
         max-width: 400px;
         min-width: 300px;
     }
+
+    #back{
+        position: absolute;
+        top: 28px;
+        left: 32px;
+    }
+
+    header#header > input{
+        margin-left: 80px;
+    }
     
-    header#header > img{
+    header#header > img#menu-mobile{
         display: none;
     }
     header#header > input{
@@ -69,6 +79,13 @@ header#header{
     }
 }
 
+header#header > img#back{
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
 img#menu-mobile{
     width: 40px;
     height: 40px;
@@ -76,18 +93,6 @@ img#menu-mobile{
     cursor: pointer;
 }
 
-.scrollbar::-webkit-scrollbar {
-    width:6px;
-    background-color: transparent;
-}
-.scrollbar::-webkit-scrollbar-thumb {
-    background-color: var(--bg-color-tertiary);
-    border-radius: 4px;
-}
-.scrollbar::-webkit-scrollbar-truck{
-    background-color: black;
-    border-radius: 4px;
-}
 
 ul#tasks{
     list-style: none;
@@ -208,6 +213,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 #add-btn{
+    cursor: pointer;
     border: none;
     outline: none;
     background-color: transparent;
@@ -219,6 +225,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     background-color: var(--text-color);
     padding: 4px 12px;
     border-radius: 8px;
+}
+
+#add-btn:hover{
+    filter: brightness(1.25);
 }
 
 
@@ -234,8 +244,13 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     resize: none;
 }
 
-.task textarea::placeholder{
+.task textarea::placeholder,
+#header input::placeholder{
     color: rgb(184, 179, 179);
+}
+
+#header input::placeholder{
+    font-size: 16px;
 }
 
 .task input::placeholder{
@@ -286,6 +301,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     outline: none;
     border:none;
     color: var(--text-color-secondary);
+    width: 75%;
 }
 
 ul p{
@@ -329,11 +345,16 @@ ul p{
     padding: 0px 4px;
 }
 .save-changes > img[id='cancel-changes'] {
+    cursor: pointer;
     background-color: var(--bg-color-secondary);
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
 }
+.save-changes > img:hover {
+    filter: brightness(1.25);
+}
 .save-changes >  img[id='save-changes'] {
+    cursor: pointer;
     background-color: var(--bg-color-secondary);
     border-top-left-radius: 12px;
     border-bottom-left-radius: 12px;

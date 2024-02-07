@@ -16,4 +16,8 @@ for ($i = 0; $i < count($filters); $i++) {
     echo "<input onchange='handleFilterChange(event)' data-filter='$filter' type='checkbox' $checked data-filter='$i'/>";
     echo "</li>";
 }
+echo "<div class='project-header'>";
+echo "<p>Projects</p>";
+echo "<img src='assets/projects.svg' alt='filter'/>";
+echo "</div>";
 echo "</ul>";
