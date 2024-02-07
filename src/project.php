@@ -19,17 +19,17 @@ echo "<script src='scripts/handler.js'></script>";
 
 <body>
     <header id="header">
-        <p><?php
-            $cid = $_REQUEST['id'];
-            $name = Category::fetchName($cid);
-            echo "<input type='text' onkeypress='onChange(event)' value='$name' name='title' id='c$cid' class='title-input'/>" ?></p>
+        <?php
+        $cid = $_REQUEST['id'];
+        $name = Category::fetchName($cid);
+        echo "<input type='text' onkeypress='onChange(event)' value='$name' name='title' id='c$cid' class='title-input'/>" ?>
         <img src="assets/menu.svg" alt="menu" id="menu-mobile" />
         <?php
         include "menu.php";
         ?>
     </header>
     <ul id="tasks">
-        <div>
+        <div id='tasks-title'>
             <p>Tasks</p>
             <?php
             $date = date('Y-m-d\TH:i');

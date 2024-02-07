@@ -10,6 +10,65 @@ header#header{
     position: relative;
 }
 
+@media screen and (max-width: 768px) {
+    ul#tasks > div > li{
+        padding: 6px 12px;
+    }
+
+    
+    .task textarea{
+        min-height: 96px;
+    }
+    
+}
+
+@media screen and (min-width: 768px){
+    body{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        padding: 0px 24px;
+        flex-grow: 1;
+    }
+
+    ul#tasks > div > li{
+        padding: 10px 12px; 
+    }
+
+    header#header{
+        background-color: var(--bg-color-secondary);
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        border-radius: 12px;
+        flex-basis: 30%;
+        max-width: 400px;
+        min-width: 300px;
+    }
+    
+    header#header > img{
+        display: none;
+    }
+    header#header > input{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+    
+    ul#tasks{
+        flex-basis: 70%;
+    }
+
+    .task textarea{
+        min-height: 106px;
+    }
+}
+
 img#menu-mobile{
     width: 40px;
     height: 40px;
@@ -47,6 +106,7 @@ ul#tasks{
 #tasks-container{
     display: flex;
     flex-direction: column;
+    justify-content: start;
     overflow-y: auto;
     height: 100%;
     padding: 4px;
@@ -55,7 +115,6 @@ ul#tasks{
 
 ul#tasks > div > li{
     background-color: var(--bg-color-tertiary);
-    padding: 6px 12px;
     border-radius: 12px;
 }
 ul#tasks > div > li > div{
@@ -69,6 +128,7 @@ ul#tasks > div > li > div{
     width: 10px;
     height: 10px;
     border-radius: 100%;
+    cursor: pointer;
     outline: 1px solid white;
 }
 .checkbox-input[data-completed="completed"]{
@@ -81,9 +141,9 @@ ul#tasks > div > li > div{
     filter: brightness(1.15);
 }
 
-#tasks > div{
+#tasks > div#tasks-title{
     display: flex;
-    justify-content: space-between ;
+    justify-content: space-between;
     align-items: center;
     padding: 0px 4px 0px 4px;
 }
@@ -172,7 +232,14 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     font-weight: 500;
     width: 100%;
     resize: none;
-    min-height: 10px;
+}
+
+.task textarea::placeholder{
+    color: rgb(184, 179, 179);
+}
+
+.task input::placeholder{
+    color: rgb(184, 179, 179);
 }
 
 .task {

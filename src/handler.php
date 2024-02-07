@@ -14,14 +14,17 @@ if ($action == "save-category") {
     $cTitle = $requestBody["title"];
     $complete_until = $requestBody["complete_until"];
     $cid = $requestBody["id"];
+    $todosArray = [];
     foreach ($todos as $todo) {
         $id = $todo["id"];
         $title = $todo["title"];
         $description = $todo["description"];
         $completed = $todo["completed"];
-        echo json_encode(Todo::updateTodo($id, $title, $description, $completed));
+        echo json_encode($completed);
+        $todosArray[] = Todo::updateTodo($id, $title, $description, $completed);
     }
-    echo json_encode(Category::updateCategory($cid, $cTitle, $complete_until));
+    Category::updateCategory($cid, $cTitle, $complete_until);
+    echo json_encode($todosArray);
     return;
 }
 if ($action == "delete-todo") {

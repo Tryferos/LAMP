@@ -241,7 +241,7 @@ class Todo
         // Check if new title or description is empty, if not, update
         $updatedTitle = (!empty($newTitle)) ? $newTitle : $todo->title;
         $updatedDescription = (!empty($newDescription)) ? $newDescription : $todo->description;
-        $updatedCompleted = (!empty($completed)) ? $completed : $todo->completed;
+        $updatedCompleted = ($completed == true ? 1 : 0);
 
         // Update the database with the new title and description
         mysqli_query($mysqli, "UPDATE tododb.Todo 
