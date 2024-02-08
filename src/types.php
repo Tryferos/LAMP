@@ -282,11 +282,11 @@ class Category
         $this->todos = $todos;
     }
 
-    public static function fetchAll()
+    public static function fetchAll($exceptId = -1)
     {
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT c.id, c.title, c.date, c.complete_until, count(t.id) as todoCount, 
         count(case t.completed when '1' then 1 else null end) as completedCount 
-        from Category c left join Todo t on c.id = t.cid group by c.id,c.title,c.date,c.complete_until order by completedCount desc, todoCount desc,c.date desc");
+        from Category c left join Todo t on c.id = t.cid where c.id != $exceptId group by c.id,c.title,c.date,c.complete_until order by completedCount desc, todoCount desc,c.date desc");
         $categories = [];
         while ($row = $result->fetch_object()) {
             $cat = new Category(

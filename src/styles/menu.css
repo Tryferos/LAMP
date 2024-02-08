@@ -136,3 +136,39 @@ ul.mobile-dropdown-menu{
     object-fit: contain;
     filter: brightness(1.5);
 }
+
+.project-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-container > li > img{
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.project-container > li > img.arrow{
+    position: absolute;
+    right: 5px;
+    top: auto;
+}
+
+.project-container > li{
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 8px;
+    padding: 6px 12px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.project-container > li:hover{
+    background-color: var(--bg-color-tertiary);
+}

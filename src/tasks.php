@@ -15,3 +15,6 @@ foreach ($todos as $todo) {
     echo "<img src='assets/delete.svg' id='delete-$todo->id' alt='delete' class='delete-todo' onclick='handleDeleteTodo(event)' />";
     echo "</li>";
 }
+if (count($todos) == 0) {
+    echo "<li><p id='no-todos'>No tasks yet.</p></li>";
+}
