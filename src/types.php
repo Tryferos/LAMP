@@ -363,7 +363,7 @@ class Category
             $total++;
         }
         $percentage = ($total > 0) ? (($completed / $total) * 100) : 0;
-        return array($completed, $total, $percentage);
+        return array($completed, $total, number_format($percentage, 1));
     }
 
 

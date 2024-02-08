@@ -69,6 +69,36 @@ section{
     font-family: WotfardMd, sans-serif;
 }
 
+.tasks{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    flex-wrap: wrap;
+}
+
+.task{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding: 0px;
+    background-color: var(--bg-color-secondary);
+    padding: 6px 12px;
+    border-radius: 12px;
+}
+
+.task > p{
+    margin-left: -50%;
+}
+
+.task > img{
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+
+}
+
 p.deadline{
     font-size: 14px;
 }

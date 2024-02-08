@@ -37,6 +37,18 @@ body{
     font-family: Wotfard, sans-serif;
 }
 
+.checkbox-input{
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  cursor: pointer;
+  outline: 1px solid white;
+}
+.checkbox-input[data-completed="completed"]{
+  background-color: var(--text-color);
+  outline-color: var(--text-color);
+}
+
 .scrollbar::-webkit-scrollbar {
   width:6px;
   background-color: transparent;
