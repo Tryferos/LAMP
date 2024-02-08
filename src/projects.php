@@ -6,7 +6,7 @@ foreach ($projects as $project) {
     $percentage = Category::calculateCompletionStatistics($project)[2];
     $date = $project->complete_until != null ? date("l d F, H:i", strtotime($project->complete_until)) : 'Indefinitely';
     $completion = $project->todoCount > 0 ? "$project->completedCount/$project->todoCount ($percentage%) of tasks are completed." : "No tasks yet.";
-    echo "<li><p id='header'>$project->title</p>";
+    echo "<li onclick='window.location.href=`/project.php?id=$project->id`'><p id='header'>$project->title</p>";
     echo "<p class='deadline'>Deadline: <span>$date</span></p>";
     $todos = Todo::fetchAll($project->id);
     echo "<ul class='tasks'>";
@@ -23,4 +23,7 @@ foreach ($projects as $project) {
     echo "$completion";
     echo "</p>";
     echo "</li>";
+}
+if (count($projects) == 0) {
+    echo "<li><p id='no-projects'>No projects yet.</p></li>";
 }

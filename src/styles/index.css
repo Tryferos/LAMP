@@ -59,6 +59,10 @@ section{
     border-radius: 12px;
     padding: 12px 24px;
     position: relative;
+    cursor: pointer;
+}
+#projects-list > li:hover{
+    filter: brightness(1.25);
 }
 #projects-list > li > p::first-letter{
     text-transform: uppercase;
@@ -75,7 +79,9 @@ section{
     padding: 0px;
     flex-wrap: wrap;
 }
-
+#no-projects{
+    text-align: center;
+}
 .task{
     display: flex;
     justify-content: space-between;
@@ -85,6 +91,7 @@ section{
     background-color: var(--bg-color-secondary);
     padding: 6px 12px;
     border-radius: 12px;
+    cursor: pointer;
 }
 
 .task > p{
