@@ -305,6 +305,12 @@ class Category
         );
     }
 
+    public static function projectExists($id)
+    {
+        $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Category WHERE id = $id");
+        return mysqli_num_rows($result) > 0;
+    }
+
     public static function fetchName($id)
     {
         $cat = Category::fetchId($id);

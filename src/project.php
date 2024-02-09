@@ -35,11 +35,12 @@ echo "<script src='scripts/projectHandler.js'></script>";
             return;
         }
         $cid = $_REQUEST['id'];
-        $name = Category::fetchName($cid);
-        if ($name == null) {
+        $exists = Category::projectExists($cid);
+        if (!$exists) {
             echo "<p id='not-exist'>This Project does not exist</p>";
             return;
         }
+        $name = Category::fetchName($cid);
         echo "<input type='text' placeholder='Creating a new Project...' onkeypress='onChange(event)' value='$name' name='title' id='c$cid' class='title-input'/>" ?>
         <img src="assets/menu.svg" alt="menu" id="menu-mobile" />
         <?php
