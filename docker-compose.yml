@@ -13,9 +13,11 @@ services:
         image: mariadb:10.6
         restart: always
         environment:
-            MYSQL_ROOT_PASSWORD: big_shifu_123
+            MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: db
             MYSQL_USER: root
+        volumes:
+            - ./src/init.sql:/docker-entrypoint-initdb.d/init.sql
         ports:
             - 3303:3303
     phpmyadmin:

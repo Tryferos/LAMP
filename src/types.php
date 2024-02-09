@@ -1,19 +1,4 @@
 <?php
-
-// todo - categories
-// todo -> task, category -> project
-// fetch todos completed by category id     done
-// fetch todos pending by category id       done
-// fetch todos within date range by category id (date1, date2) done
-// fetch description by id      done
-// delete todo by id            done
-// delete category by id        done
-// update todo (title, description) by id - 2 functions done 
-// create empty todo    done 
-// create empty category done
-// update category (title, complete until) by id - 2 functions done
-// check expired category by id done
-// category tasks statistics stored in variables (completed, total, percentage) done
 class Todo
 {
     public $id;
