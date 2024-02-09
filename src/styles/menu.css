@@ -145,10 +145,20 @@ ul.mobile-dropdown-menu{
     
 }
 
-.project-container{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+@media screen and (min-width: 768px){
+    .project-container{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+}
+
+#header{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 85%;
 }
 
 .project-container > li > img{
