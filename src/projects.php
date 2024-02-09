@@ -10,7 +10,7 @@ foreach ($projects as $project) {
     echo "<p class='deadline'>Deadline: <span>$date</span></p>";
     $todos = Todo::fetchAll($project->id);
     echo "<ul class='tasks'>";
-    foreach (array_slice($todos, 1, 2) as $todo) {
+    foreach (array_slice($todos, 0, 2) as $todo) {
         $completed = $todo->completed ? "completed" : "";
         echo "<li data-completed='$completed' onclick='window.location.href=`/project.php?id=$project->id`' class='task' id='" . $todo->id . "'>";
         echo "<div data-completed='$completed' class='checkbox-input'></div>";
