@@ -292,6 +292,9 @@ class Category
     {
         $result = mysqli_query($GLOBALS['mysqli'], "SELECT * FROM tododb.Category WHERE id = $id");
         $result = $result->fetch_object();
+        if ($result == null) {
+            return null;
+        }
         $todosResult = Todo::fetchAll($id);
         return new Category(
             $result->id,
@@ -304,7 +307,9 @@ class Category
 
     public static function fetchName($id)
     {
-        return Category::fetchId($id)->title;
+        $cat = Category::fetchId($id);
+        if ($cat == null) return null;
+        return $cat->title;
     }
 
     public static function fetchCompleteUntil($id)

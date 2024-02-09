@@ -37,6 +37,10 @@ body{
     font-family: Wotfard, sans-serif;
 }
 
+#not-exist{
+  color: white;
+}
+
 .checkbox-input{
   width: 10px;
   height: 10px;
