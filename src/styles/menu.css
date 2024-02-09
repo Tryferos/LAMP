@@ -137,6 +137,14 @@ ul.mobile-dropdown-menu{
     filter: brightness(1.5);
 }
 
+
+@media screen and (max-width: 768px){
+    .project-container{
+        display: none;
+    }
+    
+}
+
 .project-container{
     display: flex;
     flex-direction: column;
