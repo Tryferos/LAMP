@@ -8,6 +8,7 @@ header#header{
     font-size: 24px;
     font-family: WotfardMd, sans-serif;
     position: relative;
+    z-index: 100000;
 }
 
 @media screen and (max-width: 768px) {
@@ -106,6 +107,7 @@ ul#tasks{
     flex-direction: column;
     gap: 16px;
     position: relative;
+    z-index: 50;
 }
 
 #tasks-container{

@@ -9,7 +9,7 @@
     position: absolute;
     top: 64px;
     right: 24px;
-    z-index: 1000;
+    z-index: 100000;
     transition: all 200ms linear ; 
     pointer-events: all;
     display: flex;
@@ -30,6 +30,7 @@ div.project-header{
         position: absolute;
         pointer-events: none;
         border-radius: 12px;
+        z-index: 100000;
     }
 
     .filter-header{
@@ -152,14 +153,14 @@ ul.mobile-dropdown-menu{
         gap: 8px;
     }
     
+    #header{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 85%;
+    }
 }
 
-#header{
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    width: 85%;
-}
 
 .project-container > li > img{
     width: 20px;
