@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 <html>
+<?php
+require_once("config.php");
+include_once("types.php");
+echo "<script src='scripts/publicHandler.js'></script>";
+echo "<script src='scripts/projectHandler.js'></script>";
+?>
 
 <head>
-    <title>Project</title>
+    <?php
+    if (array_key_exists('id', $_REQUEST)) {
+        $cid = $_REQUEST['id'];
+        $name = Category::fetchName($cid);
+        echo "<title>Project: $name</title>";
+    } else {
+        echo "<title>Project does not exist</title>";
+    }
+    ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <?php
@@ -11,12 +25,6 @@
     echo '<link rel="stylesheet" type="text/css" href="styles/menu.css">';
     ?>
 </head>
-<?php
-require_once("config.php");
-include_once("types.php");
-echo "<script src='scripts/publicHandler.js'></script>";
-echo "<script src='scripts/projectHandler.js'></script>";
-?>
 
 <body>
     <header id="header">
@@ -28,6 +36,10 @@ echo "<script src='scripts/projectHandler.js'></script>";
         }
         $cid = $_REQUEST['id'];
         $name = Category::fetchName($cid);
+        if ($name == null) {
+            echo "<p id='not-exist'>This Project does not exist</p>";
+            return;
+        }
         echo "<input type='text' placeholder='Creating a new Project...' onkeypress='onChange(event)' value='$name' name='title' id='c$cid' class='title-input'/>" ?>
         <img src="assets/menu.svg" alt="menu" id="menu-mobile" />
         <?php
