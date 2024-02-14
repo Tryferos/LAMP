@@ -52,6 +52,10 @@ so you do need to download or setup anything manually.
 
 `docker-compose up`
 
+## SCREENSHOTS
+
+![image](https://github.com/Tryferos/LAMP/assets/101869298/86d26feb-8ecf-42f4-8960-c2d24b5d3bdf)
+![image](https://github.com/Tryferos/LAMP/assets/101869298/7ed3297a-54a7-4cff-a966-57a3862f93d7)
 
 
 ## 👨‍💻 Authors
